@@ -13,12 +13,13 @@ import DesignState from './DesignState';
 import { DropdownMenu } from '@radix-ui/react-dropdown-menu';
 import CardDropdown from './CardDropdown';
 import OptionsMenu from './OptionsMenu';
+import { Button } from './ui/button';
 
 export default function DesignCard() {
   return (
     <Card className='max-w-4xl min-w-4xl'>
         <CardHeader>
-            <CardDescription>Card Description</CardDescription>
+            <CardDescription>Tottenham Hotspur Stadium</CardDescription>
         </CardHeader>
         <CardContent>
         <Image
@@ -33,7 +34,7 @@ export default function DesignCard() {
         <CardFooter className='p-0 m-0'>
           <div className="flex flex-col align-center w-full">
             <div className="flex mb-2 w-full flex-row px-2">
-              <div className="flex-1"><DesignState></DesignState></div>
+              <div className="flex-1"><Button>Open</Button></div>
               <div ><OptionsMenu></OptionsMenu></div>
             </div>
             <CardDropdown></CardDropdown>

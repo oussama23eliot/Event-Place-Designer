@@ -97,6 +97,9 @@
   .nav_border{
     border-bottom: .5px solid var(--border-color);
   }
+  .board{
+
+  }
 }
  
 @layer base {

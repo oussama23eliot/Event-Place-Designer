@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { DetailedHTMLProps, HTMLAttributes } from 'react'
 import { AvatarDemo } from './ui/avatar'
 import ThemeToggle from './ui/themetoggle'
 import DropdownMenuDemo from './ShortProfile'
 
-export default function Navbar() {
+type props = {
+  className?: string ,
+  title?:string,
+  children?: React.ReactNode
+}
+
+export default function Navbar({className,title="My Designs",children}:props) {
   return (
-    <nav className=' w-full h-16 flex flex-row p-2 px-3 nav_border dark:border-border_dark	'>
-         <div className="flex-1 w-full flex flex-row items-center justify-start">
-            <div className='text-2xl font-semibold'>My Desings</div>
+    <nav className={`w-full h-fit flex flex-row p-2 px-3 nav_border dark:border-border_dark ${className}`}>
+         <div className="flex-1 w-full flex flex-col align-center my-auto justify-start">
+            <div className='text-2xl font-semibold'>{title}</div>
+            <div>{children}</div>
         </div>
         <div className=" flex-1 w-full flex flex-row items-center justify-end">
             <div className="px-3">

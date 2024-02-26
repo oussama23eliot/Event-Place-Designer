@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/ui/theme-provider"
 
 import "./globals.css";
+import StoreProvider from "@/lib/StoreProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="whitespace-nowrap overflow-auto scrollbar-hide fixed scroll-smooth">
+    <html lang="en" className="whitespace-nowrap overflow-auto scrollbar-hide  scroll-smooth">
       <body className= {inter.className} >
       <ThemeProvider
             attribute="class"
@@ -25,9 +26,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-
-            {children}
-
+            <StoreProvider>{children}</StoreProvider>
       </ThemeProvider>
       </body>
     </html>
