@@ -6,15 +6,18 @@ import DropdownMenuDemo from './ShortProfile'
 type props = {
   className?: string ,
   title?:string,
+  height?:string,
   children?: React.ReactNode
 }
 
-export default function Navbar({className,title="My Designs",children}:props) {
+export default function Navbar({className,title="My Designs",children,height}:props) {
   return (
-    <nav className={`w-full h-fit flex flex-row p-2 px-3 nav_border dark:border-border_dark ${className}`}>
+    <nav className={`w-full h-fit flex flex-row p-2 px-3 nav_border dark:border-border_dark ${className}`}
+    style={{height}}
+    >
          <div className="flex-1 w-full flex flex-col align-center my-auto justify-start">
             <div className='text-2xl font-semibold'>{title}</div>
-            <div>{children}</div>
+            <div className="w-full flex flex-row align-center items-center">{children}</div>
         </div>
         <div className=" flex-1 w-full flex flex-row items-center justify-end">
             <div className="px-3">
