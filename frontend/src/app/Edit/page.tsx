@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/store";
 import {
 	initializeCanvas,
 	addToCanvas,
-	updateCanvas,
+	zoomCanvas,
 } from "@/lib/features/boardSlice";
 import DesignDrawer from "@/components/DesignDrawer";
 import ObjectContextMenu from "@/components/ObjectContextMenu";
@@ -28,16 +28,18 @@ export default function page() {
 		const { width, height } = canvasID.current?.getBoundingClientRect();
 		const canvasObject = new fabric.Canvas(canvasID.current, {
 			backgroundColor: "rgb(238,238,238)",
-			allowTouchScrolling: true,
+			// allowTouchScrolling: true,
 			width: width,
 			height: height,
 			defaultCursor: "crosshair",
-			//stopContextMenu: true,
-			stateful: true,
+			renderOnAddRemove:true,
+			// stateful: true,
 		});
+		// canvasObject.on("mouse:over",(e:any)=>{e.target.forEachObject((ob:any)=>{if(ob.text){ob.set({"visible":true,"top":"center","left":"center"})}});canvasObject.renderAll();});
+		// canvasObject.on("mouse:out",(e:any)=>{e.target.forEachObject((ob:any)=>{if(ob.text)ob.set("visible",false)});canvasObject.renderAll();});
 
 		dispatch(
-			initializeCanvas({ canvasID: canvasID, canvasObject: canvasObject })
+			initializeCanvas({ canvasObject: canvasObject })
 		);
 		return () => {
 			canvasObject.dispose();
@@ -63,6 +65,7 @@ export default function page() {
 	const handleSelection = () => {
 		let the_obj = State?.getActiveObjects();
 		setSelectedItems(the_obj??[]);
+	
 	};
 	const handleZoom = (e) => {
 		var delta = e.deltaY;
@@ -70,11 +73,10 @@ export default function page() {
 		zoom *= 0.999 ** delta;
 		if (zoom > 20) zoom = 20;
 		if (zoom < 0.01) zoom = 0.01;
-		dispatch(updateCanvas({ value: zoom }));
+		dispatch(zoomCanvas({ value: zoom }));
 		e.preventDefault();
 		e.stopPropagation();
 	};
-
 	return (
 		<div className="flex flex-col w-full  items-center  h-screen ">
 			<div className="w-full">
@@ -89,14 +91,12 @@ export default function page() {
 					direction="horizontal"
 					className=" min-w-full h-full rounded-lg border"
 				>
-					<ResizablePanel defaultSize={10} maxSize={30} minSize={10}>
+					<ResizablePanel defaultSize={15} maxSize={30} minSize={15}>
 						<DesignDrawer></DesignDrawer>
 					</ResizablePanel>
 					<ResizableHandle />
 					<ResizablePanel
-						defaultSize={90}
-						maxSize={90}
-						minSize={70}
+						defaultSize={85}
 						className="scroll-auto w-f relative h-fit flex flex-col p-0 items-center"
 					>
 						<div
@@ -104,9 +104,10 @@ export default function page() {
 							style={{ height: "84vh" }}
 							onWheel={(e) => handleZoom(e)}
 							onClick={() => handleSelection()}
+							
 						>
-							<ObjectContextMenu selected={selectedItems}>
-								<canvas className="w-full h-full " ref={canvasID}></canvas>
+							<ObjectContextMenu selected={selectedItems} >
+								<canvas className="w-full h-full " ref={canvasID} ></canvas>
 							</ObjectContextMenu>
 						</div>
 					</ResizablePanel>

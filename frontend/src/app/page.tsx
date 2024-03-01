@@ -44,7 +44,7 @@ export default function page() {
 			className="min-h-screen min-w-full fixed rounded-lg border"
 		>
 			<ResizablePanel
-				className=" transition-all ease-linear "
+				// className=" transition-all ease-linear "
 				defaultSize={20}
 				minSize={9}
 				ref={leftside}
